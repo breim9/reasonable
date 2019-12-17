@@ -11,6 +11,7 @@ import {
   ImageBackground,
 } from 'react-native';
 
+import DailyFallacy from '../components/DailyFallacy';
 import ButtonPrimary from '../components/ButtonPrimary';
 import ButtonSecondary from '../components/ButtonSecondary';
 
@@ -26,8 +27,11 @@ export default function HomeScreen() {
             source={require('../assets/images/logo.png')}
             style={styles.logo}
           />
-          <ButtonPrimary text={"Practice"}/>
-          <ButtonSecondary text={"Fallacy List"}/>
+          <DailyFallacy />
+          <View style={{flex:1}}>
+            <ButtonPrimary text={"Practice"}/>
+            <ButtonSecondary text={"Fallacy List"}/>
+          </View>
         </View>
       </ScrollView>
       {/* </ImageBackground> */}
