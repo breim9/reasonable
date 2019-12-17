@@ -8,20 +8,29 @@ import {
   Text,
   TouchableOpacity,
   View,
+  ImageBackground,
 } from 'react-native';
 
-import { MonoText } from '../components/StyledText';
+import ButtonPrimary from '../components/ButtonPrimary';
+import ButtonSecondary from '../components/ButtonSecondary';
 
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
+      {/* <ImageBackground source={require('../assets/images/background.png')} style={{width: '100%', height: '100%'}}> */}
       <ScrollView
         style={styles.container}
         contentContainerStyle={styles.contentContainer}>
         <View style={styles.homeContainer}>
-          <Text>Hello</Text>
+          <Image
+            source={require('../assets/images/logo.png')}
+            style={styles.logo}
+          />
+          <ButtonPrimary text={"Practice"}/>
+          <ButtonSecondary text={"Fallacy List"}/>
         </View>
       </ScrollView>
+      {/* </ImageBackground> */}
     </View>
   );
 }
@@ -33,7 +42,7 @@ HomeScreen.navigationOptions = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#2A2B3D"
   },
   contentContainer: {
     paddingTop: 30,
@@ -41,8 +50,32 @@ const styles = StyleSheet.create({
   },
   homeContainer: {
     flex:1,
-    justifyContent: 'center',
     alignItems: 'center',
-    fontSize: 32,
-  }
+  },
+  bg : {
+    flex: 1,
+    position:"absolute",
+    zIndex: -1,
+    resizeMode: 'contain',
+  },
+  logo : {
+    width: 70,
+    height: 70,
+    position:"relative",
+    zIndex: 2,
+    marginTop: 20,
+  },
+  // title : {
+  //   fontFamily: 'roboto-mono-medium',
+  //   fontSize : 32,
+  //   color: '#fff',
+  //   marginTop: 60,
+  // },
+  // subtitle : {
+  //   fontFamily: 'roboto-regular',
+  //   fontSize : 16,
+  //   color: '#ADA3FF',
+  //   marginTop: 20,
+  //   marginBottom: 60,
+  // }
 });

@@ -44,7 +44,7 @@ const LinksStack = createStackNavigator(
 );
 
 LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+  tabBarLabel: 'Options',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
   ),
@@ -68,11 +68,24 @@ SettingsStack.navigationOptions = {
 
 SettingsStack.path = '';
 
-const tabNavigator = createBottomTabNavigator({
+const tabNavigator = createBottomTabNavigator(
+{
   HomeStack,
   LinksStack,
   SettingsStack,
-});
+},
+{
+  tabBarOptions: {
+    activeTintColor: '#fff',
+    labelStyle: {
+      fontSize: 12,
+    },
+    style: {
+      backgroundColor: '#2A2B3D',
+    },
+}
+}
+);
 
 tabNavigator.path = '';
 

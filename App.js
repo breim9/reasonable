@@ -21,7 +21,7 @@ export default function App(props) {
   } else {
     return (
       <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+        {Platform.OS === 'ios' && <StatusBar backgroundColor="#2A2B3D" barStyle="light-content" />}
         <AppNavigator />
       </View>
     );
@@ -39,7 +39,10 @@ async function loadResourcesAsync() {
       ...Ionicons.font,
       // We include SpaceMono because we use it in HomeScreen.js. Feel free to
       // remove this if you are not using it in your app
-      'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
+      'roboto-mono-regular': require('./assets/fonts/RobotoMono-Regular.ttf'),
+      'roboto-mono-medium': require('./assets/fonts/RobotoMono-Medium.ttf'),
+      'roboto-regular': require('./assets/fonts/Roboto-Regular.ttf'),
+      'roboto-medium': require('./assets/fonts/Roboto-Medium.ttf'),
     }),
   ]);
 }
