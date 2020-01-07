@@ -18,13 +18,21 @@ const config = Platform.select({
 const HomeStack = createStackNavigator(
   {
     Home: HomeScreen,
-    // FallacyList : FallacyList,
-    // FallacyItem : FallacyItem
+    FallacyList : FallacyList,
+    FallacyItem : FallacyItem
   },
-  config
-  // {
-  //   initialRouteName : "Home"
-  // }
+  {
+    initialRouteName : "Home",
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: '#2A2B3D',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    }
+  }
 );
 
 HomeStack.navigationOptions = {
