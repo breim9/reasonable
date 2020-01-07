@@ -3,9 +3,11 @@ import { Text, TouchableOpacity, StyleSheet} from 'react-native';
 
 export default function ButtonSecondary(props) {
   return (
-      <TouchableOpacity style={styles.buttonSecondary}>
-          <Text {...props} style={styles.buttonSecondaryText}>
-              {props.text}
+      <TouchableOpacity style={styles.buttonSecondary}
+        onPress={() => props.navigationProp.push(props.newPage)}
+      >
+          <Text style={styles.buttonSecondaryText}>
+              {props.title}
           </Text>
       </TouchableOpacity>
   );

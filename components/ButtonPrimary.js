@@ -1,15 +1,20 @@
 import React from 'react';
 import { Text, TouchableOpacity, StyleSheet} from 'react-native';
+import { withNavigation } from 'react-navigation';
 
-export default function ButtonPrimary(props) {
+function ButtonPrimary(props) {
   return (
-      <TouchableOpacity style={styles.buttonPrimary}>
-          <Text {...props} style={styles.buttonPrimaryText}>
-              {props.text}
+      <TouchableOpacity style={styles.buttonPrimary}  
+      onPress={() => props.navigationProp.navigate(props.newPage)}
+      >
+          <Text style={styles.buttonPrimaryText}>
+              {props.title}
           </Text>
       </TouchableOpacity>
   );
 }
+
+export default withNavigation(ButtonPrimary);
 
 const styles = StyleSheet.create({
     buttonPrimary : {

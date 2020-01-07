@@ -1,5 +1,5 @@
 import * as WebBrowser from 'expo-web-browser';
-import React from 'react';
+import React, { Component } from 'react';
 import {
   Image,
   Platform,
@@ -8,36 +8,42 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Button,
   ImageBackground,
+  SafeAreaView,
 } from 'react-native';
 
 import DailyFallacy from '../components/DailyFallacy';
 import ButtonPrimary from '../components/ButtonPrimary';
 import ButtonSecondary from '../components/ButtonSecondary';
 
-export default function HomeScreen() {
-  return (
-    <View style={styles.container}>
-      {/* <ImageBackground source={require('../assets/images/background.png')} style={{width: '100%', height: '100%'}}> */}
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}>
-        <View style={styles.homeContainer}>
-          <Image
-            source={require('../assets/images/logo.png')}
-            style={styles.logo}
-          />
-          <DailyFallacy />
-          <View style={{flex:1}}>
-            <ButtonPrimary text={"Practice"}/>
-            <ButtonSecondary text={"Fallacy List"}/>
-          </View>
+
+export default class HomeScreen extends Component{
+  render(){
+    return (
+        <View style={styles.container}>
+          {/* <ImageBackground source={require('../assets/images/background.png')} style={{width: '100%', height: '100%'}}> */}
+          <ScrollView
+            style={styles.container}
+            contentContainerStyle={styles.contentContainer}>
+            <View style={styles.homeContainer}>
+              <Image
+                source={require('../assets/images/logo.png')}
+                style={styles.logo}
+              />
+              <DailyFallacy />
+              <View style={{flex:1}}>
+                <ButtonPrimary title={"Practice"} newPage={"PracticeStack"} navigationProp={this.props.navigation}/>
+                <ButtonSecondary title={"Fallacy List"} newPage={"PracticeStack"} navigationProp={this.props.navigation}/>
+              </View>
+            </View>
+          </ScrollView>
+          {/* </ImageBackground> */}
         </View>
-      </ScrollView>
-      {/* </ImageBackground> */}
-    </View>
-  );
+    );
+  }
 }
+  
 
 HomeScreen.navigationOptions = {
   header: null,
