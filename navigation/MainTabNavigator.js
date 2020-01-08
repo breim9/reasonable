@@ -26,6 +26,7 @@ const HomeStack = createStackNavigator(
     defaultNavigationOptions: {
       headerStyle: {
         backgroundColor: '#2A2B3D',
+        borderBottomWidth : 0,
       },
       headerTintColor: '#fff',
       headerTitleStyle: {
@@ -55,7 +56,19 @@ const PracticeStack = createStackNavigator(
   {
     Practice: PracticeScreen,
   },
-  config
+  {
+    initialRouteName : "Practice",
+    defaultNavigationOptions: {
+      headerStyle : {
+        backgroundColor: '#2A2B3D',
+        borderBottomWidth : 0,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    }
+  }
 );
 
 PracticeStack.navigationOptions = {
@@ -97,6 +110,7 @@ const tabNavigator = createBottomTabNavigator(
     },
     style: {
       backgroundColor: '#2A2B3D',
+      borderTopWidth: 0,
     },
 }
 }

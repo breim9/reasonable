@@ -45,7 +45,11 @@ export default class FallacyList extends Component {
 }
 
 FallacyList.navigationOptions = {
-    title: 'Fallacy List',
+    title: '',
+    headerStyle : {
+        backgroundColor: '#2A2B3D',
+        
+    }
 }
     
 
@@ -59,7 +63,6 @@ const styles = StyleSheet.create({
         fontFamily: 'roboto-mono-medium',
         fontSize : 32,
         color: '#fff',
-        marginTop: 20,
         marginBottom: 30,
     },
     item:{
