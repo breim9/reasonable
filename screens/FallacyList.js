@@ -4,6 +4,7 @@ import {
   View,
   Text,
   FlatList,
+  TouchableOpacity
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -25,11 +26,14 @@ export default class FallacyList extends Component {
             <FlatList
                 data={list}
                 renderItem={ ({ item }) => 
-                    <View style={styles.item}>
+                    <TouchableOpacity 
+                        style={styles.item}
+                        onPress={ () => this.props.navigation.push('FallacyItem', {item})}
+                    >
                         <Text style={styles.itemName}>
                             {item.name}
                         </Text>
-                    </View>}
+                    </TouchableOpacity>}
                 keyExtrator={ item => item.id }
             >
             </FlatList>

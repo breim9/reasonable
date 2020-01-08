@@ -5,13 +5,18 @@ import {
   Text
 } from 'react-native';
 
-export default class App extends Component {
+export default class FallacyItem extends Component {
 
   render(){
+
+    let fallacyItem = this.props.navigation.getParam('item', 'Fallacy Item');
+
     return (
-      <SafeAreaView style={{flex:1}}>
-        <Text>Fallacy Item</Text>
-      </SafeAreaView>
+      <View style={{flex:1}}>
+        <Text>{fallacyItem.name}</Text>
+        <Text>{fallacyItem.definition}</Text>
+        <Text>{fallacyItem.example}</Text>
+      </View>
     )
   }
 
