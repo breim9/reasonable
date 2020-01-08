@@ -46,10 +46,6 @@ export default class FallacyList extends Component {
 
 FallacyList.navigationOptions = {
     title: '',
-    headerStyle : {
-        backgroundColor: '#2A2B3D',
-        
-    }
 }
     
 

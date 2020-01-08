@@ -9,6 +9,7 @@ import PracticeScreen from '../screens/PracticeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import FallacyList from '../screens/FallacyList';
 import FallacyItem from '../screens/FallacyItem';
+import ExerciseScreen from '../screens/ExerciseScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -55,6 +56,7 @@ HomeStack.path = '';
 const PracticeStack = createStackNavigator(
   {
     Practice: PracticeScreen,
+    Exercise: ExerciseScreen,
   },
   {
     initialRouteName : "Practice",

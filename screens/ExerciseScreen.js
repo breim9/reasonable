@@ -7,27 +7,20 @@ import {
   Text,
 } from 'react-native';
 
-import PracticeButton from 'components/PracticeButton';
-
-export default class PracticeScreen extends Component {
+export default class ExerciseScreen extends Component {
   render(){
     return (
       <View style={{flex:1}}>
         <ScrollView style={styles.container}>
-          <Text style={styles.title}>Practice</Text>
-          <PracticeButton 
-            titleMain={"Name the fallacy"} 
-            titleSub={"from the description"} 
-            progress={"80%"}
-            newPage={"Exercise"} navigationProp={this.props.navigation} />
+          <Text style={styles.title}>Exercise</Text>
         </ScrollView>
       </View>
     );
   }
 }
 
-PracticeScreen.navigationOptions = {
-  header: null,
+ExerciseScreen.navigationOptions = {
+
 };
 
 const styles = StyleSheet.create({
@@ -40,7 +33,7 @@ const styles = StyleSheet.create({
     fontFamily: 'roboto-mono-medium',
     fontSize : 32,
     color: '#fff',
-    marginTop: 100,
+    marginTop: 10,
     marginBottom: 30,
 },
 });
