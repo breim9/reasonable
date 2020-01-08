@@ -11,63 +11,40 @@ import AnswerOption from '../components/AnswerOption';
 import ListOfFallacies from '../components/listOfFallacies';
 
 
-
 export default class ExerciseScreen extends Component {
 
-generateQuestion = (exercise) => {
+generateAnswers = (selectedFallacyId) => {
     // ! will this not get the latest state though?
-    let listOfAvailableFallacies = exercise.fallaciesStillToLearnById;
-
-    if (listOfAvailableFallacies.length < 1){
-        console.log("Finished the whole list");
-        return;
-    }
-
-    let selectedFallacyId = listOfAvailableFallacies[0];
-
-    // !this would change based on type of exercise
-    let prompt = ListOfFallacies.list[selectedFallacyId].definition;
+   
     let positionInAnswerList = Math.floor(Math.random() * (5)).toString();
     let otherAnswersIds = [];
 
     // selectedFallacyId.toString()
-    let idsAlreadySelected = [ '0' ];
-    let failsafeCounter = 0; 
+    let selectedId = selectedFallacyId.toString();
+    let idsAlreadySelected = [ selectedId ];
     
-    function generateRandomId(){
-
-        // ? So it correctly catches duplicates and generates a newId that is different
-        // ? But the original id is what ends up getting logged.
-
+    function generateSingleRandomId(){
         let foundNewId = false;
-        let newId;
-
+        let newId = "undefined";
+        let failsafeCounter = 0; 
         while (!foundNewId){
-
             if (failsafeCounter > 30) return
             failsafeCounter++;
-
             newId = Math.floor(Math.random() * (25 - 1)).toString();
-            if (idsAlreadySelected.includes(newId)){
-                console.log("caught a duplicate : ", newId);
-            } 
-            else {
-                foundNewId = true;
-            } 
+            if (!idsAlreadySelected.includes(newId)) foundNewId = true; 
         }
-        console.log("id being returned is : ", newId);
         return newId;
     }
 
-    for (var i=0; i<4; i++){
-        let num = generateRandomId();
-        idsAlreadySelected.push(num);
-        console.log("the list is now : ", idsAlreadySelected)
+    function generateAnswerOptions(amount){
+        for (var i=0; i<amount; i++){
+            let newId = generateSingleRandomId();
+            idsAlreadySelected.push(newId);
+        }
     }
 
-    if (idsAlreadySelected.length != 5){
-        console.warn("Soething's wrong with number of generate potential answers");
-    }
+    generateAnswerOptions(4);
+
 
     //change the order up so the correct answer isn't always first
 
@@ -77,29 +54,65 @@ generateQuestion = (exercise) => {
     //or have a separate check answer function that does it based off title
 }
 
+getPromptTypeFromTypeId(typeOfExercise){
+    if (typeOfExercise === 'NameFallacyFromDescription'){
+        return 'definition';
+    }
+    else if (typeOfExercise === 'NameFallacyFromExample'){
+        return 'example';
+    }
+    else if (typeOfExercise === 'DescribeFallacyFromName'){
+        return 'name';
+    }
+    else {
+        return 'definition';
+    }
+}
+getAnswerTypeFromTypeId(typeOfExercise){
+    if (typeOfExercise === 'NameFallacyFromDescription'){
+        return 'name';
+    }
+    else if (typeOfExercise === 'NameFallacyFromExample'){
+        return'name';
+    }
+    else if (typeOfExercise === 'DescribeFallacyFromName'){
+        return 'definition';
+    }
+    else {
+        return 'name';
+    }
+}
+
+
 render(){
 
-    console.log("---------------");
+    let exerciseProps = this.props.navigation.getParam('exerciseProps', 'NA');
+    let listOfAvailableFallacies = exerciseProps.fallaciesStillToLearnById;
+    let typeOfExercise = exerciseProps.typeId;
 
-    let exercise = this.props.navigation.getParam('exerciseProps', 'NA');
+    let promptType = this.getPromptTypeFromTypeId(typeOfExercise);
+    let answerType = this.getAnswerTypeFromTypeId(typeOfExercise);
+
+    if (listOfAvailableFallacies < 1){
+        console.warn("Exercise complete!");
+        //do something different here
+    }
+    
+    let selectedFallacyId = listOfAvailableFallacies[0];
+    let prompt = ListOfFallacies.list[selectedFallacyId][promptType];
     let answers = [];
-    let randonames = ['dfads', 'adfdsf', 'dafsd', 'dfdsdsa', 'aasdf', 'adsfsd'];
-
-    let answerOptions = this.generateQuestion(exercise);
+    let answerOptions = this.generateAnswers(selectedFallacyId);
 
     answers = answerOptions.map( (item, key) => (
-        <AnswerOption title={`${item}`} key={key}/>
+        <AnswerOption title={`${ListOfFallacies.list[item][answerType]}`} key={key}/>
     ));
-
-
-
 
     return (
       <View style={{flex:1}}>
         <ScrollView style={styles.container}>
-          <Text style={styles.title}>{exercise.name}</Text>
+          <Text style={styles.title}>{exerciseProps.name}</Text>
           <Text style={styles.progress}>0/15</Text>
-          <Text style={styles.prompt}>Attacking your opponent's character or personal traits in an attempt to undermine their argument</Text>
+          <Text style={styles.prompt}>{prompt}</Text>
           { answers }
         </ScrollView>
       </View>
@@ -111,8 +124,6 @@ render(){
 ExerciseScreen.navigationOptions = {
     title : "Fallacy Exercise"
 };
-
-
 
 const styles = StyleSheet.create({
   container: {
