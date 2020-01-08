@@ -10,6 +10,31 @@ import {
 import PracticeButton from 'components/PracticeButton';
 
 export default class PracticeScreen extends Component {
+
+  // fallaciesByName: ["adHominem", "appealToEmotion", "strawman", "slipperlySlope", "falseCause", "tuQuoque", "personalIncredulity", "theFallacyFallacy", "specialPleading", "loadedQuestion", "burdenOfProof", "ambiguity", "theGamblersFallacy", "bandwagon", "appealToAuthority", "compositionDivision", "noTrueScotsman", "genetic", "blackOrWhite", "beggingTheQuestion", "appealToNature", "anecdotal", "theTexasSharpshooter", "middleGround"],
+
+  state = {
+    NameFallacyFromDescription : {
+      name : "Name the fallacy from the description",
+      progress: "0%",
+      fallaciesLearnedById: [],
+      fallaciesStillToLearnById : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+    },
+    NameFallacyFromExample : {
+      name : "Name the fallacy from the example",
+      progress: "0%",
+      fallaciesLearnedById: [],
+      fallaciesStillToLearnById : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+    },
+    DescribeFallacyFromName : {
+      name : "Describe the fallacy from the name",
+      progress: "0%",
+      fallaciesLearnedById: [],
+      fallaciesStillToLearnById : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+    },
+  }
+
+
   render(){
     return (
       <View style={{flex:1}}>
@@ -18,8 +43,8 @@ export default class PracticeScreen extends Component {
           <PracticeButton 
             titleMain={"Name the fallacy"} 
             titleSub={"from the description"} 
-            progress={"80%"}
-            newPage={"Exercise"} navigationProp={this.props.navigation} />
+            exerciseProps={this.state.NameFallacyFromDescription} 
+            navigationProp={this.props.navigation} />
         </ScrollView>
       </View>
     );

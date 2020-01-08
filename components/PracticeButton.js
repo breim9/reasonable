@@ -5,11 +5,11 @@ import { withNavigation } from 'react-navigation';
 function PracticeButton(props) {
   return (
       <TouchableOpacity style={styles.buttonPractice}  
-      onPress={() => props.navigationProp.navigate(props.newPage)}
+      onPress={() => props.navigationProp.navigate('Exercise', {'exerciseProps': props.exerciseProps})}
       >
           <Text style={styles.titleMain}> {props.titleMain}</Text>
           <Text style={styles.titleSub}> {props.titleSub}</Text>
-          <Text style={styles.percent}>{props.progress}</Text>
+          <Text style={styles.percent}>{props.exerciseProps.progress}</Text>
       </TouchableOpacity>
   );
 }

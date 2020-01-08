@@ -100,7 +100,7 @@ export const list = [
         id:'15',
     },
     {
-        name:"No true scotsman",
+        name:"No True Scotsman",
         definition:"Making what could be called an appeal to purity as a way to dismiss relevant criticisms or flaws of an argument.",
         example:"Angus declares that Scotsmen do not put sugar on their porridge to which Lachlan points out that he is a Scotsman and puts sugar on his porridge. Furious, like a true Scot, Angus yells that no true Scotsman sugars his porridge.",
         id:'16',
