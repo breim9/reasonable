@@ -17,7 +17,7 @@ export default class FallacyList extends Component {
         Import fallacy list, use that as data for FlatList
         render each, passing it's information as a param to FallacyItem page
     */
-    let list = ListOfFallacies;
+    let list = ListOfFallacies.list;
 
     return (
         <View style={styles.container}>
