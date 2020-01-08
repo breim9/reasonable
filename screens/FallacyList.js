@@ -21,14 +21,17 @@ export default class FallacyList extends Component {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Full List</Text>
-            <Text>List of Fallacies</Text>
+            <Text style={styles.title}>Fallacies</Text>
             <FlatList
                 data={list}
-                renderItem={ ({ item }) => <Text>{item.name}</Text>}
+                renderItem={ ({ item }) => 
+                    <View style={styles.item}>
+                        <Text style={styles.itemName}>
+                            {item.name}
+                        </Text>
+                    </View>}
                 keyExtrator={ item => item.id }
             >
-
             </FlatList>
         </View>
     )
@@ -52,6 +55,20 @@ const styles = StyleSheet.create({
         fontFamily: 'roboto-mono-medium',
         fontSize : 32,
         color: '#fff',
-        marginTop: 60,
+        marginTop: 20,
+        marginBottom: 30,
     },
+    item:{
+        marginBottom: 14,
+        padding: 14,
+        paddingLeft: 20,
+        borderRadius: 3,
+        borderWidth: 1,
+        borderColor: "#5041CD"
+    },
+    itemName:{
+        color:"#fff",
+        fontFamily: 'roboto-mono-regular',
+        fontSize: 16
+    }
 })
