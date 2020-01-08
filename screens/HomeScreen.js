@@ -20,6 +20,7 @@ import ButtonSecondary from '../components/ButtonSecondary';
 
 export default class HomeScreen extends Component{
   render(){
+
     return (
         <View style={styles.container}>
           {/* <ImageBackground source={require('../assets/images/background.png')} style={{width: '100%', height: '100%'}}> */}

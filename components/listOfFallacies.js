@@ -5,7 +5,7 @@
 export const list = [
     {
         name:"Ad hominem",
-        definition:"Attacking your opponenet's character or personal traits in an attempt to undermine their argument",
+        definition:"Attacking your opponent's character or personal traits in an attempt to undermine their argument",
         example:"After Sally presents an eloquent and compelling case for a more equitable taxation system, Sam asks the audience whether we should believe anything from a woman who isn't married and probably eats her own boogers.",
         id:'0',
     },
