@@ -30,6 +30,7 @@ generateAnswers = (answerFallacyId) => {
             if (failsafeCounter > 30) return
             failsafeCounter++;
             newId = Math.floor(Math.random() * (25 - 1)).toString();
+            newId = 'f' + newId; 
             if (!otherAnswersIds.includes(newId) && newId != answerId) foundNewId = true; 
         }
         return newId;
@@ -49,11 +50,22 @@ generateAnswers = (answerFallacyId) => {
         return newList;
     }
 
-    //decide how many answers to generate (not including correct option)
+    function convertIdsToObjs(finalList){
+      return finalList.map( fallacyId => {
+        return ListOfFallacies.list.filter( fallacy => fallacy.id === fallacyId)[0]
+      })
+    }
+
+    //argument decides how many answers to generate (not including correct option)
     generateAnswerOptions(4);
 
     //change the order up so the correct answer isn't always first
     finalList = combineSelectedAnswerWithOthers(answerId, otherAnswersIds);
+
+    //convert ids to their corrosponding full objects 
+    finalList = convertIdsToObjs(finalList);
+    console.log("finalList of objs", finalList);
+
     return finalList;
 
     //somehow add a 'correct' vs 'incorrect' attribute on all these? 
@@ -128,22 +140,24 @@ render(){
 
     if (listOfAvailableFallacies < 1){
         console.warn("Exercise complete!");
-        //do something different here
+        //! do something here
     }
     
     let answerFallacyId = listOfAvailableFallacies[0]; //grab next available fallacy
     let answerFallacy = this.getFallacyFromId(answerFallacyId);
-    console.log("answerFallacy ", answerFallacy);
     let prompt = answerFallacy.definition; //! UPDATE based on promptype 
 
     let answers = [];
     let answerOptions = this.generateAnswers(answerFallacyId);
 
-    answers = answerOptions.map( (id, key) => (
+    console.log("-------------------");
+    console.log("answerOptions ", answerOptions);
+
+    answers = answerOptions.map( (fallacy, key) => (
         <AnswerOption 
-          title={`${ListOfFallacies.list[5][answerType]}`} 
+          title={fallacy.name} 
           key={key}
-          checkAnswer = {() => this.answerHandler(id, answerFallacyId)} //
+          checkAnswer = {() => this.answerHandler(fallacy.id, answerFallacyId)} //
         />
     ));
 
