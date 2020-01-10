@@ -5,6 +5,7 @@ import {
   StyleSheet,
   SafeAreaView,
   Text,
+  Button
 } from 'react-native';
 
 import PracticeButton from 'components/PracticeButton';
@@ -30,24 +31,62 @@ export default class PracticeScreen extends Component {
     },
     DescribeFallacyFromName : {
       name : "Describe the fallacy from the name",
+      // DescribeFallacyFromName
       typeId : 'DescribeFallacyFromName',
       progress: "0%",
       fallaciesLearnedById: [],
       fallaciesStillToLearnById : ["f0", "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11", "f12", "f13", "f14", "f15", "f16", "f17", "f18", "f19", "f20", "f21", "f22", "f23"]
     },
+    b : {}
+  }
+
+  updateFallacyList = (exercise, updateType, fallacyId) => {
+    //exercise = NameFallacyFromDescription, NameFallacyFromExample, DescribeFallacyFromName
+    //updateType = success, failure 
+    //fallacyId = f0, f1, f2, etc. 
+
+    console.log("fallacyId: ", fallacyId)
+
+    alert("updateFallacyList");
+
+    if (updateType === "success"){
+      let NameFallacyFromDescription = { ...this.state.NameFallacyFromDescription};
+      // let exerciseObj = this.state[exercise]; 
+      NameFallacyFromDescription.fallaciesLearnedById.push(fallacyId);
+      NameFallacyFromDescription.fallaciesStillToLearnById.filter( id => id === fallacyId);
+      this.setState({ NameFallacyFromDescription : NameFallacyFromDescription })
+    }
+
+  }
+
+
+  updateState = () => {
+    // let b = {...this.state.b} ;
+    // b.progress = "32%";
+    // this.setState( {b: b} );
+    let newObj = { ...this.state.NameFallacyFromDescription};
+    newObj.fallaciesLearnedById.push("f0");
+    let newArr = newObj.fallaciesStillToLearnById.filter( id => id !== "f0");
+    newObj.fallaciesStillToLearnById = newArr;
+    this.setState({ NameFallacyFromDescription : newObj })
   }
 
 
   render(){
+
     return (
       <View style={{flex:1}}>
         <ScrollView style={styles.container}>
           <Text style={styles.title}>Practice</Text>
+          <Button onPress={this.updateState} title={"Update State"} />
           <PracticeButton 
             titleMain={"Name the fallacy"} 
             titleSub={"from the description"} 
             exerciseProps={this.state.NameFallacyFromDescription} 
-            navigationProp={this.props.navigation} />
+            navigationProp={this.props.navigation} 
+            updateFallacyList={this.updateFallacyList}
+            //PropDrilling? updateFallacy goes PracticeScreen > PracticeButton > ExerciseScreen > AnswerOption > ExerciseScreen
+          />
         </ScrollView>
       </View>
     );

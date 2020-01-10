@@ -64,7 +64,6 @@ generateAnswers = (answerFallacyId) => {
 
     //convert ids to their corrosponding full objects 
     finalList = convertIdsToObjs(finalList);
-    console.log("finalList of objs", finalList);
 
     return finalList;
 
@@ -102,14 +101,18 @@ getAnswerTypeFromTypeId(typeOfExercise){
     }
 }
 
-answerHandler(selectedFallacyId, answerFallacyId){
+getFallacyFromId(id){
+  return ListOfFallacies.list.filter( fallacy => fallacy.id === id)[0];
+}
 
-  console.log('select: ' + selectedFallacyId + ' answer: ' + answerFallacyId);
+answerHandler(selectedFallacyId, answerFallacyId, typeOfExercise){
+
+  let updateFallacyList = this.props.navigation.getParam('updateFallacyList', 'NA');
   
   if (selectedFallacyId === answerFallacyId){
-    alert("correct!");
     // updated state to be from still to learn to learned
     //correct animation
+    updateFallacyList(typeOfExercise, 'success', answerFallacyId);
   }
   else {
     //move fallacy to end of still-to-learn array 
@@ -117,23 +120,24 @@ answerHandler(selectedFallacyId, answerFallacyId){
   }
 }
 
-getFallacyFromId(id){
-  return ListOfFallacies.list.filter( fallacy => fallacy.id === id)[0];
-}
+
 
 
 render(){
 
     /* TODO 
-      - use ids properly.... 
       - identify when a click is correct or incorrect 
       - if correct, move to fallaciesLearnedById in state
       - if incorrect, move to end of array 
     */
 
+    
+
     let exerciseProps = this.props.navigation.getParam('exerciseProps', 'NA');
     let listOfAvailableFallacies = exerciseProps.fallaciesStillToLearnById;
     let typeOfExercise = exerciseProps.typeId;
+
+    console.log("listOfAvailableFallacies : ", listOfAvailableFallacies)
 
     let promptType = this.getPromptTypeFromTypeId(typeOfExercise);
     let answerType = this.getAnswerTypeFromTypeId(typeOfExercise);
@@ -150,14 +154,11 @@ render(){
     let answers = [];
     let answerOptions = this.generateAnswers(answerFallacyId);
 
-    console.log("-------------------");
-    console.log("answerOptions ", answerOptions);
-
     answers = answerOptions.map( (fallacy, key) => (
         <AnswerOption 
           title={fallacy.name} 
           key={key}
-          checkAnswer = {() => this.answerHandler(fallacy.id, answerFallacyId)} //
+          checkAnswer = {() => this.answerHandler(fallacy.id, answerFallacyId, typeOfExercise)} //
         />
     ));
 

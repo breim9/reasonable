@@ -5,7 +5,7 @@ import { withNavigation } from 'react-navigation';
 function PracticeButton(props) {
   return (
       <TouchableOpacity style={styles.buttonPractice}  
-      onPress={() => props.navigationProp.navigate('Exercise', {'exerciseProps': props.exerciseProps})}
+      onPress={() => props.navigationProp.navigate('Exercise', {'exerciseProps': props.exerciseProps, 'updateFallacyList': props.updateFallacyList})}
       >
           <Text style={styles.titleMain}> {props.titleMain}</Text>
           <Text style={styles.titleSub}> {props.titleSub}</Text>
