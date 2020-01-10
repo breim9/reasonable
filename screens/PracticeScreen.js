@@ -19,21 +19,21 @@ export default class PracticeScreen extends Component {
       typeId : 'NameFallacyFromDescription',
       progress: "0%",
       fallaciesLearnedById: [],
-      fallaciesStillToLearnById : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+      fallaciesStillToLearnById : ["f0", "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11", "f12", "f13", "f14", "f15", "f16", "f17", "f18", "f19", "f20", "f21", "f22", "f23"]
     },
     NameFallacyFromExample : {
       name : "Name the fallacy from the example",
       typeId : 'NameFallacyFromExample',
       progress: "0%",
       fallaciesLearnedById: [],
-      fallaciesStillToLearnById : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+      fallaciesStillToLearnById : ["f0", "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11", "f12", "f13", "f14", "f15", "f16", "f17", "f18", "f19", "f20", "f21", "f22", "f23"]
     },
     DescribeFallacyFromName : {
       name : "Describe the fallacy from the name",
       typeId : 'DescribeFallacyFromName',
       progress: "0%",
       fallaciesLearnedById: [],
-      fallaciesStillToLearnById : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+      fallaciesStillToLearnById : ["f0", "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11", "f12", "f13", "f14", "f15", "f16", "f17", "f18", "f19", "f20", "f21", "f22", "f23"]
     },
   }
 

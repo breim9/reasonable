@@ -5,6 +5,7 @@ import {
   StyleSheet,
   SafeAreaView,
   Text,
+  TouchableOpacity
 } from 'react-native';
 
 import AnswerOption from '../components/AnswerOption';
@@ -13,11 +14,11 @@ import ListOfFallacies from '../components/listOfFallacies';
 
 export default class ExerciseScreen extends Component {
 
-generateAnswers = (selectedFallacyId) => {
+generateAnswers = (answerFallacyId) => {
     // will this not get the latest state though?
     // this depends on if the PracticeScreen / ExerciseScreen is re-rendered each time or not I think.
    
-    let selectedId = selectedFallacyId.toString();
+    let answerId = answerFallacyId;
     let otherAnswersIds = [];
     let finalList = [];
     
@@ -29,7 +30,7 @@ generateAnswers = (selectedFallacyId) => {
             if (failsafeCounter > 30) return
             failsafeCounter++;
             newId = Math.floor(Math.random() * (25 - 1)).toString();
-            if (!otherAnswersIds.includes(newId) && newId != selectedId) foundNewId = true; 
+            if (!otherAnswersIds.includes(newId) && newId != answerId) foundNewId = true; 
         }
         return newId;
     }
@@ -41,10 +42,10 @@ generateAnswers = (selectedFallacyId) => {
         }
     }
 
-    function combineSelectedAnswerWithOthers(selectedId, otherAnswersIds){
+    function combineSelectedAnswerWithOthers(answerId, otherAnswersIds){
         let selectedAnswerPositionInAnswerList = Math.floor(Math.random() * (5)).toString();
         let newList = [...otherAnswersIds];
-        newList.splice(selectedAnswerPositionInAnswerList, 0, selectedId);
+        newList.splice(selectedAnswerPositionInAnswerList, 0, answerId);
         return newList;
     }
 
@@ -52,9 +53,7 @@ generateAnswers = (selectedFallacyId) => {
     generateAnswerOptions(4);
 
     //change the order up so the correct answer isn't always first
-    finalList = combineSelectedAnswerWithOthers(selectedId, otherAnswersIds);
-    
-    console.log("final list: ", finalList);
+    finalList = combineSelectedAnswerWithOthers(answerId, otherAnswersIds);
     return finalList;
 
     //somehow add a 'correct' vs 'incorrect' attribute on all these? 
@@ -91,11 +90,30 @@ getAnswerTypeFromTypeId(typeOfExercise){
     }
 }
 
+answerHandler(selectedFallacyId, answerFallacyId){
+
+  console.log('select: ' + selectedFallacyId + ' answer: ' + answerFallacyId);
+  
+  if (selectedFallacyId === answerFallacyId){
+    alert("correct!");
+    // updated state to be from still to learn to learned
+    //correct animation
+  }
+  else {
+    //move fallacy to end of still-to-learn array 
+    //incorrect animation
+  }
+}
+
+getFallacyFromId(id){
+  return ListOfFallacies.list.filter( fallacy => fallacy.id === id)[0];
+}
+
 
 render(){
 
     /* TODO 
-      - randomize order of provided answers
+      - use ids properly.... 
       - identify when a click is correct or incorrect 
       - if correct, move to fallaciesLearnedById in state
       - if incorrect, move to end of array 
@@ -113,13 +131,20 @@ render(){
         //do something different here
     }
     
-    let selectedFallacyId = listOfAvailableFallacies[0]; //grab next available fallacy
-    let prompt = ListOfFallacies.list[selectedFallacyId][promptType];
-    let answers = [];
-    let answerOptions = this.generateAnswers(selectedFallacyId);
+    let answerFallacyId = listOfAvailableFallacies[0]; //grab next available fallacy
+    let answerFallacy = this.getFallacyFromId(answerFallacyId);
+    console.log("answerFallacy ", answerFallacy);
+    let prompt = answerFallacy.definition; //! UPDATE based on promptype 
 
-    answers = answerOptions.map( (item, key) => (
-        <AnswerOption title={`${ListOfFallacies.list[item][answerType]}`} key={key}/>
+    let answers = [];
+    let answerOptions = this.generateAnswers(answerFallacyId);
+
+    answers = answerOptions.map( (id, key) => (
+        <AnswerOption 
+          title={`${ListOfFallacies.list[5][answerType]}`} 
+          key={key}
+          checkAnswer = {() => this.answerHandler(id, answerFallacyId)} //
+        />
     ));
 
     return (

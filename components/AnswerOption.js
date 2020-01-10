@@ -1,14 +1,14 @@
 import React from 'react';
 import { Text, TouchableOpacity, StyleSheet} from 'react-native';
 
-function AnswerOption(props) {
-  return (
-      <TouchableOpacity style={styles.button}  
-    //   onPress={() => props.navigationProp.navigate('Exercise', {'exerciseProps': props.exerciseProps})}
-      >
-          <Text style={styles.title}> {props.title}</Text>
-      </TouchableOpacity>
-  );
+AnswerOption = (props) => {
+    return (
+        <TouchableOpacity style={styles.button}  
+            onPress={() => props.checkAnswer()}
+        >
+            <Text style={styles.title}> {props.title}</Text>
+        </TouchableOpacity>
+    );
 }
 
 export default AnswerOption;
