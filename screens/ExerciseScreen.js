@@ -14,14 +14,12 @@ import ListOfFallacies from '../components/listOfFallacies';
 export default class ExerciseScreen extends Component {
 
 generateAnswers = (selectedFallacyId) => {
-    // ! will this not get the latest state though?
+    // will this not get the latest state though?
+    // this depends on if the PracticeScreen / ExerciseScreen is re-rendered each time or not I think.
    
-    let positionInAnswerList = Math.floor(Math.random() * (5)).toString();
-    let otherAnswersIds = [];
-
-    // selectedFallacyId.toString()
     let selectedId = selectedFallacyId.toString();
-    let idsAlreadySelected = [ selectedId ];
+    let otherAnswersIds = [];
+    let finalList = [];
     
     function generateSingleRandomId(){
         let foundNewId = false;
@@ -31,7 +29,7 @@ generateAnswers = (selectedFallacyId) => {
             if (failsafeCounter > 30) return
             failsafeCounter++;
             newId = Math.floor(Math.random() * (25 - 1)).toString();
-            if (!idsAlreadySelected.includes(newId)) foundNewId = true; 
+            if (!otherAnswersIds.includes(newId) && newId != selectedId) foundNewId = true; 
         }
         return newId;
     }
@@ -39,16 +37,25 @@ generateAnswers = (selectedFallacyId) => {
     function generateAnswerOptions(amount){
         for (var i=0; i<amount; i++){
             let newId = generateSingleRandomId();
-            idsAlreadySelected.push(newId);
+            otherAnswersIds.push(newId);
         }
     }
 
+    function combineSelectedAnswerWithOthers(selectedId, otherAnswersIds){
+        let selectedAnswerPositionInAnswerList = Math.floor(Math.random() * (5)).toString();
+        let newList = [...otherAnswersIds];
+        newList.splice(selectedAnswerPositionInAnswerList, 0, selectedId);
+        return newList;
+    }
+
+    //decide how many answers to generate (not including correct option)
     generateAnswerOptions(4);
 
-
     //change the order up so the correct answer isn't always first
-
-    return idsAlreadySelected;
+    finalList = combineSelectedAnswerWithOthers(selectedId, otherAnswersIds);
+    
+    console.log("final list: ", finalList);
+    return finalList;
 
     //somehow add a 'correct' vs 'incorrect' attribute on all these? 
     //or have a separate check answer function that does it based off title
@@ -68,6 +75,7 @@ getPromptTypeFromTypeId(typeOfExercise){
         return 'definition';
     }
 }
+
 getAnswerTypeFromTypeId(typeOfExercise){
     if (typeOfExercise === 'NameFallacyFromDescription'){
         return 'name';
@@ -86,6 +94,13 @@ getAnswerTypeFromTypeId(typeOfExercise){
 
 render(){
 
+    /* TODO 
+      - randomize order of provided answers
+      - identify when a click is correct or incorrect 
+      - if correct, move to fallaciesLearnedById in state
+      - if incorrect, move to end of array 
+    */
+
     let exerciseProps = this.props.navigation.getParam('exerciseProps', 'NA');
     let listOfAvailableFallacies = exerciseProps.fallaciesStillToLearnById;
     let typeOfExercise = exerciseProps.typeId;
@@ -98,7 +113,7 @@ render(){
         //do something different here
     }
     
-    let selectedFallacyId = listOfAvailableFallacies[0];
+    let selectedFallacyId = listOfAvailableFallacies[0]; //grab next available fallacy
     let prompt = ListOfFallacies.list[selectedFallacyId][promptType];
     let answers = [];
     let answerOptions = this.generateAnswers(selectedFallacyId);
