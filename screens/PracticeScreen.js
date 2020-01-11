@@ -5,7 +5,6 @@ import {
   StyleSheet,
   SafeAreaView,
   Text,
-  Button
 } from 'react-native';
 
 import PracticeButton from 'components/PracticeButton';
@@ -45,32 +44,17 @@ export default class PracticeScreen extends Component {
     //updateType = success, failure 
     //fallacyId = f0, f1, f2, etc. 
 
-    console.log("fallacyId: ", fallacyId)
-
-    alert("updateFallacyList");
-
     if (updateType === "success"){
-      let NameFallacyFromDescription = { ...this.state.NameFallacyFromDescription};
-      // let exerciseObj = this.state[exercise]; 
-      NameFallacyFromDescription.fallaciesLearnedById.push(fallacyId);
-      NameFallacyFromDescription.fallaciesStillToLearnById.filter( id => id === fallacyId);
-      this.setState({ NameFallacyFromDescription : NameFallacyFromDescription })
+      let newExerciseObj = { ...this.state[exercise]};
+      newExerciseObj.fallaciesLearnedById.push(fallacyId);
+      let newExerciseArr = newExerciseObj.fallaciesStillToLearnById.filter( id => id !== fallacyId);
+      newExerciseObj.fallaciesStillToLearnById = newExerciseArr;
+      this.setState({ [ exercise ] : newExerciseObj })
     }
 
+    //If failure.... for the moment, do nothing
+
   }
-
-
-  updateState = () => {
-    // let b = {...this.state.b} ;
-    // b.progress = "32%";
-    // this.setState( {b: b} );
-    let newObj = { ...this.state.NameFallacyFromDescription};
-    newObj.fallaciesLearnedById.push("f0");
-    let newArr = newObj.fallaciesStillToLearnById.filter( id => id !== "f0");
-    newObj.fallaciesStillToLearnById = newArr;
-    this.setState({ NameFallacyFromDescription : newObj })
-  }
-
 
   render(){
 
@@ -78,7 +62,6 @@ export default class PracticeScreen extends Component {
       <View style={{flex:1}}>
         <ScrollView style={styles.container}>
           <Text style={styles.title}>Practice</Text>
-          <Button onPress={this.updateState} title={"Update State"} />
           <PracticeButton 
             titleMain={"Name the fallacy"} 
             titleSub={"from the description"} 

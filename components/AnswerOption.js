@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, StyleSheet} from 'react-native';
 
 AnswerOption = (props) => {
     return (
-        <TouchableOpacity style={styles.button}  
+        <TouchableOpacity style={[styles.button, styles[props.visualResult]]}  
             onPress={() => props.checkAnswer()}
         >
             <Text style={styles.title}> {props.title}</Text>
@@ -29,5 +29,14 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontFamily: 'roboto-mono-medium',
         color : "#FFFFFF",
+    },
+    default : {
+        borderColor : "#5041CD",
+    },
+    clickCorrect : {
+        borderColor : "#54AF64",
+    },
+    clickIncorrect : {
+        borderColor : "#AF5554",
     }
 })

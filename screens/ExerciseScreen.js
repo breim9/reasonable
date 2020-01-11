@@ -14,61 +14,104 @@ import ListOfFallacies from '../components/listOfFallacies';
 
 export default class ExerciseScreen extends Component {
 
-generateAnswers = (answerFallacyId) => {
-    // will this not get the latest state though?
-    // this depends on if the PracticeScreen / ExerciseScreen is re-rendered each time or not I think.
-   
-    let answerId = answerFallacyId;
+constructor(props){
+  super(props);
+  this.state = {
+    answers : [
+      {id:"", title: "", result:"incorrect", selected:false},
+      {id:"", title: "", result:"incorrect", selected:false},
+      {id:"", title: "", result:"incorrect", selected:false},
+      {id:"", title: "", result:"incorrect", selected:false},
+      {id:"", title: "", result:"incorrect", selected:false},
+    ],
+    correctAnswerId : '',
+  }
+}
+
+generateAnswers = (answerFallacy) => {
+
+    //bring in the correct fallacy from full fallacy list.
+    //build an array of fallacy objects 
+    let numOfAnswers = 4; //not including the correct answer
+    let answersList = [];
     let otherAnswersIds = [];
-    let finalList = [];
-    
+
     function generateSingleRandomId(){
-        let foundNewId = false;
-        let newId = "undefined";
-        let failsafeCounter = 0; 
-        while (!foundNewId){
-            if (failsafeCounter > 30) return
-            failsafeCounter++;
-            newId = Math.floor(Math.random() * (25 - 1)).toString();
-            newId = 'f' + newId; 
-            if (!otherAnswersIds.includes(newId) && newId != answerId) foundNewId = true; 
+      let foundNewId = false;
+      let newId = "undefined";
+      let failsafeCounter = 0; 
+      while (!foundNewId){
+          if (failsafeCounter > 30) return
+          failsafeCounter++;
+          newId = Math.floor(Math.random() * (25 - 1)).toString();
+          newId = 'f' + newId; 
+          if (!otherAnswersIds.includes(newId) && newId != answerFallacy.id){
+            foundNewId = true; 
+            otherAnswersIds.push(newId);
+          } 
+          
+      }
+      return newId;
+    }
+
+    function getFallacyTitleFromId(id){
+      let title = '';
+      ListOfFallacies.list.map( fallacy => {
+        if (fallacy.id === id){
+          title = fallacy.name; //! this should depend on answerType
         }
-        return newId;
+      })
+      return title;
+    }
+
+    function getResultFromId(id){
+      let result = '';
+      if (id === answerFallacy.id){
+        result = "correct";
+      }
+      else {
+        result = "incorrect";
+      }
+      return result;
+    }
+
+    function generateSingleAnswer(){
+      let newAnswer = {};
+      newAnswer.id = generateSingleRandomId();
+      newAnswer.title = getFallacyTitleFromId(newAnswer.id);
+      newAnswer.result = "incorrect"; //correct answer is generated separately
+      newAnswer.selected = false;
+      return newAnswer; 
     }
 
     function generateAnswerOptions(amount){
-        for (var i=0; i<amount; i++){
-            let newId = generateSingleRandomId();
-            otherAnswersIds.push(newId);
-        }
+      for (var i=0; i<amount; i++){
+          let answer = generateSingleAnswer();
+          answersList.push(answer);
+      }
     }
 
-    function combineSelectedAnswerWithOthers(answerId, otherAnswersIds){
-        let selectedAnswerPositionInAnswerList = Math.floor(Math.random() * (5)).toString();
-        let newList = [...otherAnswersIds];
-        newList.splice(selectedAnswerPositionInAnswerList, 0, answerId);
-        return newList;
+    function generateCorrectAnswerObj(answerFallacy){
+      let answerObj = {};
+      answerObj.id = answerFallacy.id;
+      answerObj.title = answerFallacy.name; //! this should depend on answerType
+      answerObj.result = "correct";
+      answerObj.selected = false; 
+      return answerObj;
+    }
+    
+    function combineCorrectAnswerWithOthers(){
+      let correctAnswer = generateCorrectAnswerObj(answerFallacy);
+      let correctAnswerPositionInAnswerList = Math.floor(Math.random() * (numOfAnswers + 1)).toString();
+      let answersListCombined = [...answersList];
+      answersListCombined.splice(correctAnswerPositionInAnswerList, 0, correctAnswer);
+      return answersListCombined;
     }
 
-    function convertIdsToObjs(finalList){
-      return finalList.map( fallacyId => {
-        return ListOfFallacies.list.filter( fallacy => fallacy.id === fallacyId)[0]
-      })
-    }
+    generateAnswerOptions(numOfAnswers);
+    answersList = combineCorrectAnswerWithOthers();
+    return answersList;
 
-    //argument decides how many answers to generate (not including correct option)
-    generateAnswerOptions(4);
-
-    //change the order up so the correct answer isn't always first
-    finalList = combineSelectedAnswerWithOthers(answerId, otherAnswersIds);
-
-    //convert ids to their corrosponding full objects 
-    finalList = convertIdsToObjs(finalList);
-
-    return finalList;
-
-    //somehow add a 'correct' vs 'incorrect' attribute on all these? 
-    //or have a separate check answer function that does it based off title
 }
 
 getPromptTypeFromTypeId(typeOfExercise){
@@ -105,39 +148,69 @@ getFallacyFromId(id){
   return ListOfFallacies.list.filter( fallacy => fallacy.id === id)[0];
 }
 
-answerHandler(selectedFallacyId, answerFallacyId, typeOfExercise){
+answerHandler(selectedAnswer, answerFallacyId, typeOfExercise){
 
   let updateFallacyList = this.props.navigation.getParam('updateFallacyList', 'NA');
   
-  if (selectedFallacyId === answerFallacyId){
-    // updated state to be from still to learn to learned
-    //correct animation
-    updateFallacyList(typeOfExercise, 'success', answerFallacyId);
+  if (selectedAnswer.id === answerFallacyId){
+    updateFallacyList(typeOfExercise, 'success', selectedAnswer.id);
   }
   else {
-    //move fallacy to end of still-to-learn array 
-    //incorrect animation
+    //! move fallacy to end of still-to-learn array 
   }
+
+  let currentAnswers = [...this.state.answers];
+  let newAnswers = currentAnswers.map( answer => {
+    if (answer.id === selectedAnswer.id){
+      answer.selected = true;
+    }
+    return answer;
+  })
+  this.setState({answers : newAnswers})
 }
 
+returnVisualResult(answer){
+
+  //check state
+  if (answer.result === "correct" && answer.selected){
+    return "clickCorrect";
+  }
+  else if (answer.result === "incorrect" && answer.selected){
+    return "clickIncorrect";
+  }
+  else {
+    return 'default';
+  }
+
+  
+}
+
+componentDidMount(){
+
+  let exerciseProps = this.props.navigation.getParam('exerciseProps', 'NA');
+  let listOfAvailableFallacies = exerciseProps.fallaciesStillToLearnById;
+  let newCorrectFallacyId = listOfAvailableFallacies[0]; //next available fallacy;
+  console.log("newCorrectFallacy ", newCorrectFallacyId);
+  this.setState({ correctAnswerId : newCorrectFallacyId});
+
+  let answerFallacyId = newCorrectFallacyId;
+  let answerFallacy = this.getFallacyFromId(answerFallacyId) || {};
+  let newAnswers = this.generateAnswers(answerFallacy);
+  this.setState( { answers : newAnswers });
+}
 
 
 
 render(){
 
     /* TODO 
-      - identify when a click is correct or incorrect 
       - if correct, move to fallaciesLearnedById in state
       - if incorrect, move to end of array 
     */
 
-    
-
     let exerciseProps = this.props.navigation.getParam('exerciseProps', 'NA');
     let listOfAvailableFallacies = exerciseProps.fallaciesStillToLearnById;
     let typeOfExercise = exerciseProps.typeId;
-
-    console.log("listOfAvailableFallacies : ", listOfAvailableFallacies)
 
     let promptType = this.getPromptTypeFromTypeId(typeOfExercise);
     let answerType = this.getAnswerTypeFromTypeId(typeOfExercise);
@@ -147,19 +220,23 @@ render(){
         //! do something here
     }
     
-    let answerFallacyId = listOfAvailableFallacies[0]; //grab next available fallacy
-    let answerFallacy = this.getFallacyFromId(answerFallacyId);
-    let prompt = answerFallacy.definition; //! UPDATE based on promptype 
+    let answerFallacyId = this.state.correctAnswerId;
+    let answerFallacy = this.getFallacyFromId(answerFallacyId) || {};
+    console.log("running render. Answer Id : ", answerFallacyId);
+    let prompt = answerFallacy[promptType] || 'loading error';
 
-    let answers = [];
-    let answerOptions = this.generateAnswers(answerFallacyId);
+    let answers, answerOptions = [];
+    //if answerOptions from state is empty, make the first set 
+    
+    answerOptions = [...this.state.answers]; 
 
-    answers = answerOptions.map( (fallacy, key) => (
-        <AnswerOption 
-          title={fallacy.name} 
-          key={key}
-          checkAnswer = {() => this.answerHandler(fallacy.id, answerFallacyId, typeOfExercise)} //
-        />
+    answers = answerOptions.map( (answer, key) => (
+      <AnswerOption 
+        title={answer.title} 
+        key={key}
+        checkAnswer = {() => this.answerHandler(answer, answerFallacyId, typeOfExercise)} 
+        visualResult={ this.returnVisualResult(answer) }
+      />
     ));
 
     return (
