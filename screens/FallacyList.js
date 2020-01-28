@@ -1,45 +1,45 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
-  View,
-  Text,
-  FlatList,
-  TouchableOpacity
+    StyleSheet,
+    View,
+    Text,
+    FlatList,
+    TouchableOpacity
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
-import ListOfFallacies from 'components/listOfFallacies.js';
+import ListOfFallacies from '../constants/listOfFallacies.js';
 
 export default class FallacyList extends Component {
 
-  render(){
+    render() {
 
-    /* 
-        Import fallacy list, use that as data for FlatList
-        render each, passing it's information as a param to FallacyItem page
-    */
-    let list = ListOfFallacies.list;
+        /* 
+            Import fallacy list, use that as data for FlatList
+            render each, passing it's information as a param to FallacyItem page
+        */
+        let list = ListOfFallacies.list;
 
-    return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Fallacies</Text>
-            <FlatList
-                data={list}
-                renderItem={ ({ item }) => 
-                    <TouchableOpacity 
-                        style={styles.item}
-                        onPress={ () => this.props.navigation.push('FallacyItem', {item})}
-                    >
-                        <Text style={styles.itemName}>
-                            {item.name}
-                        </Text>
-                    </TouchableOpacity>}
-                keyExtrator={ item => item.id }
-            >
-            </FlatList>
-        </View>
-    )
-  }
+        return (
+            <View style={styles.container}>
+                <Text style={styles.title}>Fallacies</Text>
+                <FlatList
+                    data={list}
+                    renderItem={({ item }) =>
+                        <TouchableOpacity
+                            style={styles.item}
+                            onPress={() => this.props.navigation.push('FallacyItem', { item })}
+                        >
+                            <Text style={styles.itemName}>
+                                {item.name}
+                            </Text>
+                        </TouchableOpacity>}
+                    keyExtrator={item => item.id}
+                >
+                </FlatList>
+            </View>
+        )
+    }
 
 
 }
@@ -47,7 +47,7 @@ export default class FallacyList extends Component {
 FallacyList.navigationOptions = {
     title: '',
 }
-    
+
 
 const styles = StyleSheet.create({
     container: {
@@ -55,13 +55,13 @@ const styles = StyleSheet.create({
         backgroundColor: "#2A2B3D",
         padding: 20,
     },
-    title:{
+    title: {
         fontFamily: 'roboto-mono-medium',
-        fontSize : 32,
+        fontSize: 32,
         color: '#fff',
         marginBottom: 30,
     },
-    item:{
+    item: {
         marginBottom: 14,
         padding: 14,
         paddingLeft: 20,
@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#5041CD"
     },
-    itemName:{
-        color:"#fff",
+    itemName: {
+        color: "#fff",
         fontFamily: 'roboto-mono-regular',
         fontSize: 16
     }

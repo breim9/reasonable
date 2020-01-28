@@ -3,14 +3,13 @@ import {
   StyleSheet,
   View,
   Text,
-  AsyncStorage
 } from 'react-native';
 
-import listOfFallacies from 'components/listOfFallacies'
+import listOfFallacies from '../constants/listOfFallacies'
 
 export default class DailyFallacy extends Component {
 
-  render(){
+  render() {
 
     /* 
     I have 24 fallacies and max 31 days in a month
@@ -22,8 +21,8 @@ export default class DailyFallacy extends Component {
     let todaysDate = date.getDate();
     let todaysFallacyNumber = 1;
 
-    if (todaysDate < 24){
-      todaysFallacyNumber = todaysDate - 1; 
+    if (todaysDate < 24) {
+      todaysFallacyNumber = todaysDate - 1;
     }
     else {
       todaysFallacyNumber = (todaysDate - 24) * 3;
@@ -45,34 +44,34 @@ export default class DailyFallacy extends Component {
 }
 
 const styles = StyleSheet.create({
-    dailyFallacyContainer :{
-        flex: 1,
-        alignItems: 'flex-start',
-        paddingLeft: 20,
-        paddingRight: 20,
-    },
-    dailyFallacyTitle: {
-        fontFamily: 'roboto-mono-medium',
-        fontSize : 18,
-        color: '#ADA3FF',
-        marginTop: 60,
-        marginBottom: 20,
-    },
-    fallacyItemTitle: {
-        fontFamily: 'roboto-mono-medium',
-        fontSize : 24,
-        color: '#FFF',
-        marginBottom: 15,
-    },
-    fallacyItemDescription : {
-        fontFamily: 'roboto-regular',
-        fontSize : 16,
-        color: '#FFF',
-        marginBottom: 30,
-    },
-    divider : {
-        alignSelf: 'stretch',
-        height: 1,
-        backgroundColor: "#ADA3FF"
-    },
+  dailyFallacyContainer: {
+    flex: 1,
+    alignItems: 'flex-start',
+    paddingLeft: 20,
+    paddingRight: 20,
+  },
+  dailyFallacyTitle: {
+    fontFamily: 'roboto-mono-medium',
+    fontSize: 18,
+    color: '#ADA3FF',
+    marginTop: 60,
+    marginBottom: 20,
+  },
+  fallacyItemTitle: {
+    fontFamily: 'roboto-mono-medium',
+    fontSize: 24,
+    color: '#FFF',
+    marginBottom: 15,
+  },
+  fallacyItemDescription: {
+    fontFamily: 'roboto-regular',
+    fontSize: 16,
+    color: '#FFF',
+    marginBottom: 30,
+  },
+  divider: {
+    alignSelf: 'stretch',
+    height: 1,
+    backgroundColor: "#ADA3FF"
+  },
 })
