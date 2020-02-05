@@ -1,10 +1,10 @@
 import React from 'react';
-import { Text, TouchableOpacity, StyleSheet} from 'react-native';
+import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 AnswerOption = (props) => {
     return (
-        <TouchableOpacity style={[styles.button, styles[props.visualResult]]}  
-            onPress={() => props.checkAnswer()}
+        <TouchableOpacity style={[styles.button, styles[props.visualResult]]}
+            onPress={() => props.answerHandler(props.id, props.result)}
         >
             <Text style={styles.title}> {props.title}</Text>
         </TouchableOpacity>
@@ -14,29 +14,29 @@ AnswerOption = (props) => {
 export default AnswerOption;
 
 const styles = StyleSheet.create({
-    button : {
+    button: {
         marginTop: 10,
         marginBottom: 10,
         borderWidth: 1,
         padding: 10,
-        borderStyle : 'solid',
+        borderStyle: 'solid',
         borderRadius: 3,
-        borderColor : "#5041CD",
+        borderColor: "#5041CD",
         display: 'flex',
         justifyContent: 'center',
     },
-    title : {
+    title: {
         fontSize: 16,
         fontFamily: 'roboto-mono-medium',
-        color : "#FFFFFF",
+        color: "#FFFFFF",
     },
-    default : {
-        borderColor : "#5041CD",
+    default: {
+        borderColor: "#5041CD",
     },
-    clickCorrect : {
-        borderColor : "#54AF64",
+    correct: {
+        borderColor: "#54AF64",
     },
-    clickIncorrect : {
-        borderColor : "#AF5554",
+    incorrect: {
+        borderColor: "#AF5554",
     }
 })

@@ -5,7 +5,9 @@ import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-import AppNavigator from './navigation/AppNavigator';
+import { Provider } from 'react-redux';
+import FallacyApp from './src/FallacyApp';
+import store from './redux/store';
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -22,7 +24,9 @@ export default function App(props) {
     return (
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar backgroundColor="#2A2B3D" barStyle="light-content" />}
-        <AppNavigator />
+        <Provider store={store}>
+          <FallacyApp />
+        </Provider>
       </View>
     );
   }
