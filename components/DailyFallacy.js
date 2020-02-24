@@ -5,7 +5,7 @@ import {
   Text,
 } from 'react-native';
 
-import listOfFallacies from '../constants/listOfFallacies'
+import { listOfFallacies } from '../constants/listOfFallacies'
 
 export default class DailyFallacy extends Component {
 
@@ -33,8 +33,8 @@ export default class DailyFallacy extends Component {
     return (
       <View style={styles.dailyFallacyContainer}>
         <Text style={styles.dailyFallacyTitle}>Fallacy of the Day</Text>
-        <Text style={styles.fallacyItemTitle}>{listOfFallacies.list[todaysFallacyNumber].name}</Text>
-        <Text style={styles.fallacyItemDescription}>{listOfFallacies.list[todaysFallacyNumber].definition}</Text>
+        <Text style={styles.fallacyItemTitle}>{listOfFallacies[todaysFallacyNumber].name}</Text>
+        <Text style={styles.fallacyItemDescription}>{listOfFallacies[todaysFallacyNumber].definition}</Text>
         <View style={styles.divider}></View>
       </View>
     )

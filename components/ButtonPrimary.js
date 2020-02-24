@@ -1,14 +1,21 @@
 import React from 'react';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { withNavigation } from 'react-navigation';
-// import { connect } from 'react-redux';
-// import { AddOne } from '../redux/actions';
 
 function ButtonPrimary(props) {
   return (
     <TouchableOpacity style={styles.buttonPrimary}
-      onPress={() => props.navigationProp.navigate(props.newPage)}
-    // onPress={() => props.AddOne()}
+      onPress={() => {
+        if (props.navigateType === "customPress") {
+
+        }
+        else if (props.navigateType === "push") {
+          props.navigationProp.push(props.action);
+        }
+        else if (props.navigateType === "popToTop") {
+          props.navigationProp.popToTop();
+        }
+      }}
     >
       <Text style={styles.buttonPrimaryText}>
         {props.title}
@@ -17,11 +24,6 @@ function ButtonPrimary(props) {
   );
 }
 
-// const mapDispatchToProps = {
-//   AddOne
-// }
-
-//export default connect(null, mapDispatchToProps)(withNavigation(ButtonPrimary));
 export default withNavigation(ButtonPrimary);
 
 const styles = StyleSheet.create({

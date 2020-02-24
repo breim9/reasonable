@@ -4,25 +4,23 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity
 } from 'react-native';
 
 import { connect } from 'react-redux';
-import { UpdateCurrentExerciseType, AddOne, GenerateNewQuestion, UpdateQuestion } from '../redux/actions';
+import { UpdateCurrentExerciseType, UpdateExerciseLibrary, AddOne, GenerateNewQuestion, UpdateQuestion, UpdateProgress, ResetProgress } from '../redux/actions';
 
+import ButtonSecondary from '../components/ButtonSecondary';
 import AnswerOption from '../components/AnswerOption';
-import ListOfFallacies from '../constants/listOfFallacies';
+import { listOfFallacies } from '../constants/listOfFallacies';
 import { activeExerciseType } from '../redux/reducers/updateCurrentExerciseType';
-
 
 class ExerciseScreen extends Component {
 
 
-  //TODO  - get the answerHandler to work. 
-
-
-
   generateNewQuestion(numOfAnswers) {
     let fallacyToLearn = this.props.exerciseLibrary[this.props.activeExerciseType].fallaciesStillToLearnById[0];
+    if (!fallacyToLearn) return;
     let wrongAnswerList = [];
     let questionIdList = [];
     let questionList = [];
@@ -57,7 +55,7 @@ class ExerciseScreen extends Component {
     }
 
     function getFallacyFromId(id) {
-      return ListOfFallacies.list.filter(fallacy => fallacy.id === id)[0];
+      return listOfFallacies.filter(fallacy => fallacy.id === id)[0];
     }
 
     function turnIdListIntoItemList() {
@@ -91,8 +89,17 @@ class ExerciseScreen extends Component {
     this.props.GenerateNewQuestion(questionList, prompt, fallacyToLearn);
   }
 
-  answerHandler = (fallacyId, result) => {
+  answerHandler = (fallacyId, result, exerciseType) => {
     this.props.UpdateQuestion(fallacyId, result)
+    if (result === "correct") {
+      this.props.UpdateExerciseLibrary(exerciseType, fallacyId);
+      this.props.UpdateProgress(exerciseType);
+      setTimeout(() => {
+        if (this.props.exerciseLibrary[this.props.activeExerciseType].fallaciesStillToLearnById[0]) {
+          this.generateNewQuestion(4);
+        }
+      }, 1300);
+    }
   }
 
   componentDidMount = () => {
@@ -103,24 +110,52 @@ class ExerciseScreen extends Component {
 
     let type = this.props.exerciseLibrary[this.props.activeExerciseType].answerType;
 
+    let prompt = (<Text style={styles.prompt}>{this.props.question.prompt}</Text>);
+
     let answers = this.props.question.questionList.map((answer, key) => (
       <AnswerOption
         title={answer[type]}
         key={key}
         result={answer.result}
         id={answer.id}
+        exerciseType={this.props.activeExerciseType}
         answerHandler={this.answerHandler}
         visualResult={answer.visualResult}
       />
     ));
 
+    let successAlert = null;
+    if (this.props.exerciseLibrary[this.props.activeExerciseType].progress === "100%") {
+      successAlert = (
+        <View style={styles.successContainer}>
+          <Text style={styles.successText}>COMPLETED</Text>
+          <ButtonSecondary
+            title={"Other Exercises"}
+            navigateType={"popToTop"}
+            action={""}
+            navigationProp={this.props.navigation}
+
+          />
+          <ButtonSecondary
+            title={"Redo Exercise"}
+            navigateType={"customPress"}
+            action={() => this.props.ResetProgress(this.props.activeExerciseType)}
+            navigationProp={this.props.navigation}
+          />
+        </View>
+      );
+      prompt = null;
+      answers = null;
+    }
+
     return (
       <View style={{ flex: 1 }}>
         <ScrollView style={styles.container}>
           <Text style={styles.title}>{this.props.exerciseLibrary[this.props.activeExerciseType].name}</Text>
-          <Text style={styles.progress}>0/15</Text>
-          <Text style={styles.prompt}>{this.props.question.prompt}</Text>
+          <Text style={styles.progress}>{this.props.exerciseLibrary[this.props.activeExerciseType].progress}</Text>
+          {prompt}
           {answers}
+          {successAlert}
         </ScrollView>
       </View>
     );
@@ -137,7 +172,10 @@ const mapDispatchToProps = {
   UpdateCurrentExerciseType,
   AddOne,
   GenerateNewQuestion,
-  UpdateQuestion
+  UpdateQuestion,
+  UpdateExerciseLibrary,
+  UpdateProgress,
+  ResetProgress
 }
 
 ExerciseScreen.navigationOptions = {
@@ -173,5 +211,24 @@ const styles = StyleSheet.create({
     lineHeight: 28,
     marginTop: 15,
     marginBottom: 25,
+  },
+  successContainer: {
+    padding: 10,
+    marginTop: 30,
+    alignItems: "center",
+  },
+  successText: {
+    fontFamily: 'roboto-mono-medium',
+    textAlign: "center",
+    fontSize: 32,
+    color: "#54AF64",
+    marginBottom: 30,
+  },
+  successButton: {
+    color: "#fff",
+    fontSize: 20,
+    textAlign: "center",
+    marginBottom: 20,
+    color: '#ADA3FF',
   }
 });

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { withNavigation } from 'react-navigation';
+import { connect } from 'react-redux';
 
 function PracticeButton(props) {
   return (
@@ -9,12 +10,16 @@ function PracticeButton(props) {
     >
       <Text style={styles.titleMain}> {props.titleMain}</Text>
       <Text style={styles.titleSub}> {props.titleSub}</Text>
-      <Text style={styles.percent}>0%</Text>
+      <Text style={styles.percent}>{props.exerciseLibrary[props.exerciseType].progress}</Text>
     </TouchableOpacity>
   );
 }
 
-export default withNavigation(PracticeButton);
+const mapStateToProps = (state) => {
+  return state;
+}
+
+export default connect(mapStateToProps)(withNavigation(PracticeButton));
 
 const styles = StyleSheet.create({
   buttonPractice: {

@@ -26,8 +26,18 @@ export default class HomeScreen extends Component {
             />
             <DailyFallacy />
             <View style={{ flex: 1 }}>
-              <ButtonPrimary title={"Practice"} newPage={"PracticeStack"} navigationProp={this.props.navigation} />
-              <ButtonSecondary title={"Fallacy List"} newPage={"FallacyList"} navigationProp={this.props.navigation} />
+              <ButtonPrimary
+                title={"Practice"}
+                navigateType={"push"}
+                action={"Practice"}
+                navigationProp={this.props.navigation}
+              />
+              <ButtonSecondary
+                title={"Fallacy List"}
+                navigateType={"push"}
+                action={"FallacyList"}
+                navigationProp={this.props.navigation}
+              />
             </View>
           </View>
         </ScrollView>

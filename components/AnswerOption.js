@@ -4,7 +4,7 @@ import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 AnswerOption = (props) => {
     return (
         <TouchableOpacity style={[styles.button, styles[props.visualResult]]}
-            onPress={() => props.answerHandler(props.id, props.result)}
+            onPress={() => props.answerHandler(props.id, props.result, props.exerciseType)}
         >
             <Text style={styles.title}> {props.title}</Text>
         </TouchableOpacity>

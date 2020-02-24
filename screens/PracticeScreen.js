@@ -48,7 +48,7 @@ PracticeScreen.navigationOptions = {
 };
 
 const mapDispatchToProps = {
-  UpdateCurrentExerciseType
+  UpdateCurrentExerciseType,
 }
 
 export default connect(null, mapDispatchToProps)(PracticeScreen);

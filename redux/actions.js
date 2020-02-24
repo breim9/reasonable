@@ -1,4 +1,4 @@
-import { ADD_ONE, FALLACY_LEARNED, UPDATE_CURRENT_EXERCISE_TYPE, GENERATE_NEW_QUESTION, UPDATE_QUESTION, UPDATE_EXERCISE_LIBRARY } from './actionTypes';
+import { ADD_ONE, FALLACY_LEARNED, UPDATE_CURRENT_EXERCISE_TYPE, GENERATE_NEW_QUESTION, UPDATE_QUESTION, UPDATE_EXERCISE_LIBRARY, UPDATE_PROGRESS, RESET_PROGRESS } from './actionTypes';
 
 
 export const AddOne = () => {
@@ -48,12 +48,33 @@ export function UpdateQuestion(fallacyId, result) {
     }
 }
 
-export function UpdateExerciseLibrary() {
+export function UpdateExerciseLibrary(exerciseType, fallacyId) {
     return {
         type: UPDATE_EXERCISE_LIBRARY,
         payload: {
-
+            exerciseType,
+            fallacyId
         }
     }
 }
+
+export function UpdateProgress(exerciseType, fallacyId) {
+    return {
+        type: UPDATE_PROGRESS,
+        payload: {
+            exerciseType
+        }
+    }
+}
+
+export function ResetProgress(exerciseType) {
+    return {
+        type: RESET_PROGRESS,
+        payload: {
+            exerciseType
+        }
+    }
+}
+
+
 
