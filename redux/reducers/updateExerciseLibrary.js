@@ -51,7 +51,9 @@ const updateExerciseLibray = (state = initialState, action) => {
             newState[action.payload.exerciseType].progress = newProgress;
             return newState;
         case RESET_PROGRESS:
-
+            newState[action.payload.exerciseType].fallaciesStillToLearnById = newState[action.payload.exerciseType].fallaciesLearnedById;
+            newState[action.payload.exerciseType].fallaciesLearnedById = [];
+            newState[action.payload.exerciseType].progress = "0%";
             return newState;
         default:
             return state;
