@@ -6,7 +6,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import PracticeScreen from '../screens/PracticeScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import AboutScreen from '../screens/AboutScreen';
 import FallacyList from '../screens/FallacyList';
 import FallacyItem from '../screens/FallacyItem';
 import ExerciseScreen from '../screens/ExerciseScreen';
@@ -19,15 +19,15 @@ const config = Platform.select({
 const HomeStack = createStackNavigator(
   {
     Home: HomeScreen,
-    FallacyList : FallacyList,
-    FallacyItem : FallacyItem
+    FallacyList: FallacyList,
+    FallacyItem: FallacyItem
   },
   {
-    initialRouteName : "Home",
+    initialRouteName: "Home",
     defaultNavigationOptions: {
       headerStyle: {
         backgroundColor: '#2A2B3D',
-        borderBottomWidth : 0,
+        borderBottomWidth: 0,
       },
       headerTintColor: '#fff',
       headerTitleStyle: {
@@ -59,11 +59,11 @@ const PracticeStack = createStackNavigator(
     Exercise: ExerciseScreen,
   },
   {
-    initialRouteName : "Practice",
+    initialRouteName: "Practice",
     defaultNavigationOptions: {
-      headerStyle : {
+      headerStyle: {
         backgroundColor: '#2A2B3D',
-        borderBottomWidth : 0,
+        borderBottomWidth: 0,
       },
       headerTintColor: '#fff',
       headerTitleStyle: {
@@ -82,40 +82,52 @@ PracticeStack.navigationOptions = {
 
 PracticeStack.path = '';
 
-const SettingsStack = createStackNavigator(
+const AboutStack = createStackNavigator(
   {
-    Settings: SettingsScreen,
+    About: AboutScreen,
   },
-  config
+  {
+    initialRouteName: "About",
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: '#2A2B3D',
+        borderBottomWidth: 0,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    }
+  }
 );
 
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+AboutStack.navigationOptions = {
+  tabBarLabel: 'About',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
   ),
 };
 
-SettingsStack.path = '';
+AboutStack.path = '';
 
 const tabNavigator = createBottomTabNavigator(
-{
-  HomeStack,
-  PracticeStack,
-  SettingsStack,
-},
-{
-  tabBarOptions: {
-    activeTintColor: '#fff',
-    labelStyle: {
-      fontSize: 12,
-    },
-    style: {
-      backgroundColor: '#2A2B3D',
-      borderTopWidth: 0,
-    },
-}
-}
+  {
+    HomeStack,
+    PracticeStack,
+    AboutStack,
+  },
+  {
+    tabBarOptions: {
+      activeTintColor: '#fff',
+      labelStyle: {
+        fontSize: 12,
+      },
+      style: {
+        backgroundColor: '#2A2B3D',
+        borderTopWidth: 0,
+      },
+    }
+  }
 );
 
 tabNavigator.path = '';
