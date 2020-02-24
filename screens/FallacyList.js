@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
-import ListOfFallacies from '../constants/listOfFallacies.js';
+import { listOfFallacies } from '../constants/listOfFallacies.js';
 
 export default class FallacyList extends Component {
 
@@ -18,7 +18,7 @@ export default class FallacyList extends Component {
             Import fallacy list, use that as data for FlatList
             render each, passing it's information as a param to FallacyItem page
         */
-        let list = ListOfFallacies.list;
+        let list = listOfFallacies;
 
         return (
             <View style={styles.container}>
