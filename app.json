@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "reasonable",
+    "name": "Reasonable",
     "slug": "reasonable",
     "privacy": "public",
     "sdkVersion": "36.0.0",
@@ -24,7 +24,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.benreimer.reasonable"
     }
   }
 }

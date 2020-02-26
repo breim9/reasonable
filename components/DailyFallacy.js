@@ -65,13 +65,15 @@ const styles = StyleSheet.create({
   },
   fallacyItemDescription: {
     fontFamily: 'roboto-regular',
-    fontSize: 16,
+    fontSize: 18,
     color: '#FFF',
     marginBottom: 30,
+    lineHeight: 24,
   },
   divider: {
     alignSelf: 'stretch',
     height: 1,
-    backgroundColor: "#ADA3FF"
+    backgroundColor: "#ADA3FF",
+    marginBottom: 10
   },
 })
