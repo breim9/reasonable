@@ -10,17 +10,4 @@ const rootReducer = combineReducers({
     exerciseLibrary
 })
 
-
-
-// const initialExerciseQuestion = {
-//     exercise: {
-//         type: "",
-//         name: "",
-//         fallacyToLearn: "",
-//         wrongAnswersList: [],
-//         allOptionsList: [],
-//     },
-// }
-
-
 export default rootReducer;
