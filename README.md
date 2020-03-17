@@ -1,5 +1,5 @@
 # Reasonable
-![Image of Reasonable App](https://github.com/breim9/reasonable/assets/images/reasonableMock.png)
+![Image of Reasonable App](https://github.com/breim9/reasonable/blob/master/assets/images/reasonableMock.png)
 An app for learning basic logical fallacies using School of Thoughts logical fallacy [list](https://yourlogicalfallacyis.com/)
 
 
