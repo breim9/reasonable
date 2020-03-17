@@ -1,5 +1,7 @@
 import React from 'react';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
 
 AnswerOption = (props) => {
     return (
@@ -15,8 +17,8 @@ export default AnswerOption;
 
 const styles = StyleSheet.create({
     button: {
-        marginTop: 10,
-        marginBottom: 10,
+        marginTop: hp(1),
+        marginBottom: hp(1),
         borderWidth: 1,
         padding: 10,
         borderStyle: 'solid',
@@ -26,7 +28,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     title: {
-        fontSize: 16,
+        fontSize: wp(4),
         fontFamily: 'roboto-mono-medium',
         color: "#FFFFFF",
     },

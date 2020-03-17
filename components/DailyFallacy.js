@@ -5,6 +5,8 @@ import {
   Text,
 } from 'react-native';
 
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
 import { listOfFallacies } from '../constants/listOfFallacies'
 
 export default class DailyFallacy extends Component {
@@ -45,35 +47,34 @@ export default class DailyFallacy extends Component {
 
 const styles = StyleSheet.create({
   dailyFallacyContainer: {
-    flex: 1,
     alignItems: 'flex-start',
     paddingLeft: 20,
     paddingRight: 20,
   },
   dailyFallacyTitle: {
     fontFamily: 'roboto-mono-medium',
-    fontSize: 18,
+    fontSize: wp(5),
     color: '#ADA3FF',
-    marginTop: 60,
+    marginTop: hp(5),
     marginBottom: 20,
   },
   fallacyItemTitle: {
     fontFamily: 'roboto-mono-medium',
-    fontSize: 24,
+    fontSize: wp(7),
     color: '#FFF',
     marginBottom: 15,
   },
   fallacyItemDescription: {
     fontFamily: 'roboto-regular',
-    fontSize: 18,
+    fontSize: wp(5),
     color: '#FFF',
     marginBottom: 30,
-    lineHeight: 24,
+    lineHeight: wp(7),
   },
   divider: {
     alignSelf: 'stretch',
     height: 1,
     backgroundColor: "#ADA3FF",
-    marginBottom: 10
+    marginBottom: hp(8)
   },
 })

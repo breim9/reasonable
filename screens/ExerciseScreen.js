@@ -7,6 +7,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { connect } from 'react-redux';
 import { UpdateCurrentExerciseType, UpdateExerciseLibrary, AddOne, GenerateNewQuestion, UpdateQuestion, UpdateProgress, ResetProgress } from '../redux/actions';
 
@@ -150,7 +151,8 @@ class ExerciseScreen extends Component {
 
     return (
       <View style={{ flex: 1 }}>
-        <ScrollView style={styles.container}>
+        <ScrollView style={styles.container}
+          contentContainerStyle={styles.contentContainer}>
           <Text style={styles.title}>{this.props.exerciseLibrary[this.props.activeExerciseType].name}</Text>
           <Text style={styles.progress}>{this.props.exerciseLibrary[this.props.activeExerciseType].progress}</Text>
           {prompt}
@@ -163,8 +165,6 @@ class ExerciseScreen extends Component {
 }
 
 function mapStateToProps(state) {
-  // const { todos } = state
-  // return { todoList: todos.allIds }
   return state;
 }
 
@@ -190,25 +190,28 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#2A2B3D',
   },
+  contentContainer: {
+    paddingBottom: 60
+  },
   title: {
     fontFamily: 'roboto-mono-regular',
-    fontSize: 16,
+    fontSize: wp(4),
     color: '#ADA3FF',
-    marginBottom: 30,
+    marginBottom: hp(1),
     textAlign: 'center',
   },
   progress: {
     fontFamily: 'roboto-mono-medium',
     textAlign: 'right',
     color: "#ADA3FF",
-    fontSize: 18,
+    fontSize: wp(4),
     marginTop: 5,
   },
   prompt: {
     fontFamily: 'roboto-medium',
     color: "#FFF",
-    fontSize: 21,
-    lineHeight: 28,
+    fontSize: wp(5),
+    lineHeight: wp(7),
     marginTop: 15,
     marginBottom: 25,
   },

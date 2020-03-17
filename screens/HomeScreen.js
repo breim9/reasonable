@@ -4,8 +4,9 @@ import {
   Image,
   ScrollView,
   StyleSheet,
-  View,
+  View
 } from 'react-native';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 import DailyFallacy from '../components/DailyFallacy';
 import ButtonPrimary from '../components/ButtonPrimary';
@@ -24,8 +25,8 @@ export default class HomeScreen extends Component {
               source={require('../assets/images/logo.png')}
               style={styles.logo}
             />
-            <DailyFallacy />
-            <View style={{ flex: 1 }}>
+            <DailyFallacy style={{ flex: 2 }} />
+            <View style={{ flex: 2 }}>
               <ButtonPrimary
                 title={"Practice"}
                 navigateType={"push"}
@@ -71,10 +72,10 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   logo: {
-    width: 70,
-    height: 70,
+    width: wp(20),
+    height: wp(20),
     position: "relative",
     zIndex: 2,
-    marginTop: 20,
+    marginTop: hp(2),
   },
 });
