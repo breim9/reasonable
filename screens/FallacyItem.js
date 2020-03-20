@@ -5,22 +5,17 @@ import {
   Text
 } from 'react-native';
 
-export default class FallacyItem extends Component {
-
-  render() {
-
-    let fallacyItem = this.props.navigation.getParam('item', 'Fallacy Item');
-
-    return (
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.title}>{fallacyItem.name}</Text>
-        </View>
-        <Text style={styles.definition}>{fallacyItem.definition}</Text>
-        <Text style={styles.example}>{fallacyItem.example}</Text>
+export default function FallacyItem(props) {
+  let fallacyItem = props.navigation.getParam('item', 'Fallacy Item');
+  return (
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.title}>{fallacyItem.name}</Text>
       </View>
-    )
-  }
+      <Text style={styles.definition}>{fallacyItem.definition}</Text>
+      <Text style={styles.example}>{fallacyItem.example}</Text>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({

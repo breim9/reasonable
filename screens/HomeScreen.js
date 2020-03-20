@@ -11,38 +11,36 @@ import DailyFallacy from '../components/DailyFallacy';
 import ButtonPrimary from '../components/ButtonPrimary';
 import ButtonSecondary from '../components/ButtonSecondary';
 
-export default class HomeScreen extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <ScrollView
-          style={styles.container}
-          contentContainerStyle={styles.contentContainer}>
-          <View style={styles.homeContainer}>
-            <Image
-              source={require('../assets/images/logo.png')}
-              style={styles.logo}
+export default function HomeScreen(props) {
+  return (
+    <View style={styles.container}>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}>
+        <View style={styles.homeContainer}>
+          <Image
+            source={require('../assets/images/logo.png')}
+            style={styles.logo}
+          />
+          <DailyFallacy style={{ flex: 2 }} />
+          <View style={{ flex: 2 }}>
+            <ButtonPrimary
+              title={"Practice"}
+              navigateType={"push"}
+              action={"Practice"}
+              navigationProp={props.navigation}
             />
-            <DailyFallacy style={{ flex: 2 }} />
-            <View style={{ flex: 2 }}>
-              <ButtonPrimary
-                title={"Practice"}
-                navigateType={"push"}
-                action={"Practice"}
-                navigationProp={this.props.navigation}
-              />
-              <ButtonSecondary
-                title={"Fallacy List"}
-                navigateType={"push"}
-                action={"FallacyList"}
-                navigationProp={this.props.navigation}
-              />
-            </View>
+            <ButtonSecondary
+              title={"Fallacy List"}
+              navigateType={"push"}
+              action={"FallacyList"}
+              navigationProp={props.navigation}
+            />
           </View>
-        </ScrollView>
-      </View>
-    );
-  }
+        </View>
+      </ScrollView>
+    </View>
+  );
 }
 
 HomeScreen.navigationOptions = {

@@ -10,37 +10,35 @@ import PracticeButton from 'components/PracticeButton';
 import { UpdateCurrentExerciseType } from '../redux/actions';
 import { connect } from 'react-redux';
 
-class PracticeScreen extends Component {
-  render() {
-    return (
-      <View style={{ flex: 1 }}>
-        <ScrollView style={styles.container}>
-          <Text style={styles.title}>Practice</Text>
-          <PracticeButton
-            titleMain={"Name the fallacy"}
-            titleSub={"from the description"}
-            exerciseType={"NameFallacyFromDescription"}
-            navigationProp={this.props.navigation}
-            UpdateCurrentExerciseType={() => this.props.UpdateCurrentExerciseType("NameFallacyFromDescription")}
-          />
-          <PracticeButton
-            titleMain={"Name the fallacy"}
-            titleSub={"from the example"}
-            exerciseType={"NameFallacyFromExample"}
-            navigationProp={this.props.navigation}
-            UpdateCurrentExerciseType={() => this.props.UpdateCurrentExerciseType("NameFallacyFromExample")}
-          />
-          <PracticeButton
-            titleMain={"Describe the fallacy"}
-            titleSub={"from the name"}
-            exerciseType={"DescribeFallacyFromName"}
-            navigationProp={this.props.navigation}
-            UpdateCurrentExerciseType={() => this.props.UpdateCurrentExerciseType("DescribeFallacyFromName")}
-          />
-        </ScrollView>
-      </View>
-    );
-  }
+function PracticeScreen(props) {
+  return (
+    <View style={{ flex: 1 }}>
+      <ScrollView style={styles.container}>
+        <Text style={styles.title}>Practice</Text>
+        <PracticeButton
+          titleMain={"Name the fallacy"}
+          titleSub={"from the description"}
+          exerciseType={"NameFallacyFromDescription"}
+          navigationProp={props.navigation}
+          UpdateCurrentExerciseType={() => props.UpdateCurrentExerciseType("NameFallacyFromDescription")}
+        />
+        <PracticeButton
+          titleMain={"Name the fallacy"}
+          titleSub={"from the example"}
+          exerciseType={"NameFallacyFromExample"}
+          navigationProp={props.navigation}
+          UpdateCurrentExerciseType={() => props.UpdateCurrentExerciseType("NameFallacyFromExample")}
+        />
+        <PracticeButton
+          titleMain={"Describe the fallacy"}
+          titleSub={"from the name"}
+          exerciseType={"DescribeFallacyFromName"}
+          navigationProp={props.navigation}
+          UpdateCurrentExerciseType={() => props.UpdateCurrentExerciseType("DescribeFallacyFromName")}
+        />
+      </ScrollView>
+    </View>
+  );
 }
 
 PracticeScreen.navigationOptions = {

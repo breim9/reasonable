@@ -9,37 +9,32 @@ import {
 
 import { listOfFallacies } from '../constants/listOfFallacies.js';
 
-export default class FallacyList extends Component {
+export default function FallacyList(props) {
+    /* 
+        Import fallacy list, use that as data for FlatList
+        render each, passing it's information as a param to FallacyItem page
+    */
+    let list = listOfFallacies;
 
-    render() {
-        /* 
-            Import fallacy list, use that as data for FlatList
-            render each, passing it's information as a param to FallacyItem page
-        */
-        let list = listOfFallacies;
-
-        return (
-            <View style={styles.container}>
-                <Text style={styles.title}>Fallacies</Text>
-                <FlatList
-                    data={list}
-                    renderItem={({ item }) =>
-                        <TouchableOpacity
-                            style={styles.item}
-                            onPress={() => this.props.navigation.push('FallacyItem', { item })}
-                        >
-                            <Text style={styles.itemName}>
-                                {item.name}
-                            </Text>
-                        </TouchableOpacity>}
-                    keyExtrator={item => item.id}
-                >
-                </FlatList>
-            </View>
-        )
-    }
-
-
+    return (
+        <View style={styles.container}>
+            <Text style={styles.title}>Fallacies</Text>
+            <FlatList
+                data={list}
+                renderItem={({ item }) =>
+                    <TouchableOpacity
+                        style={styles.item}
+                        onPress={() => props.navigation.push('FallacyItem', { item })}
+                    >
+                        <Text style={styles.itemName}>
+                            {item.name}
+                        </Text>
+                    </TouchableOpacity>}
+                keyExtrator={item => item.id}
+            >
+            </FlatList>
+        </View>
+    )
 }
 
 FallacyList.navigationOptions = {
