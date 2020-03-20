@@ -6,7 +6,7 @@ import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import { Provider } from 'react-redux';
-import FallacyApp from './src/FallacyApp';
+import FallacyApp from './FallacyApp';
 import store from './redux/store';
 
 export default function App(props) {
