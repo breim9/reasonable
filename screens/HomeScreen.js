@@ -1,4 +1,3 @@
-import * as WebBrowser from 'expo-web-browser';
 import React, { Component } from 'react';
 import {
   Image,
@@ -11,7 +10,6 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import DailyFallacy from '../components/DailyFallacy';
 import ButtonPrimary from '../components/ButtonPrimary';
 import ButtonSecondary from '../components/ButtonSecondary';
-
 
 export default class HomeScreen extends Component {
   render() {

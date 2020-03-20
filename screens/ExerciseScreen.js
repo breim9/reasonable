@@ -3,21 +3,17 @@ import {
   View,
   ScrollView,
   StyleSheet,
-  Text,
-  TouchableOpacity
+  Text
 } from 'react-native';
 
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { connect } from 'react-redux';
 import { UpdateCurrentExerciseType, UpdateExerciseLibrary, AddOne, GenerateNewQuestion, UpdateQuestion, UpdateProgress, ResetProgress } from '../redux/actions';
-
 import ButtonSecondary from '../components/ButtonSecondary';
 import AnswerOption from '../components/AnswerOption';
 import { listOfFallacies } from '../constants/listOfFallacies';
-import { activeExerciseType } from '../redux/reducers/updateCurrentExerciseType';
 
 class ExerciseScreen extends Component {
-
 
   generateNewQuestion(numOfAnswers) {
     let fallacyToLearn = this.props.exerciseLibrary[this.props.activeExerciseType].fallaciesStillToLearnById[0];
