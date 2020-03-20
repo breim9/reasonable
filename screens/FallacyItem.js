@@ -7,7 +7,7 @@ import {
 
 export default class FallacyItem extends Component {
 
-  render(){
+  render() {
 
     let fallacyItem = this.props.navigation.getParam('item', 'Fallacy Item');
 
@@ -21,35 +21,33 @@ export default class FallacyItem extends Component {
       </View>
     )
   }
-
-
 }
 
 const styles = StyleSheet.create({
   container: {
-      flex: 1,
-      backgroundColor: "#2A2B3D",
-      padding: 20,
+    flex: 1,
+    backgroundColor: "#2A2B3D",
+    padding: 20,
   },
-  header : {
-      backgroundColor: "#2A2B3D",
+  header: {
+    backgroundColor: "#2A2B3D",
   },
   title: {
-      fontFamily: 'roboto-mono-medium',
-      fontSize : 24,
-      color: '#fff',
-      marginTop: 20,
-      marginBottom: 30,
+    fontFamily: 'roboto-mono-medium',
+    fontSize: 24,
+    color: '#fff',
+    marginTop: 20,
+    marginBottom: 30,
   },
   definition: {
-      color:"#fff",
-      marginBottom: 12,
-      fontSize: 18,
-      lineHeight: 26,
+    color: "#fff",
+    marginBottom: 12,
+    fontSize: 18,
+    lineHeight: 26,
   },
   example: {
-      color:"#ADA3FF",
-      fontSize: 16,
-      lineHeight: 20,
+    color: "#ADA3FF",
+    fontSize: 16,
+    lineHeight: 20,
   }
 })
